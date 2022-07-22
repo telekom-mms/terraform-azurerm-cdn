@@ -16,6 +16,7 @@ output "cdn_endpoint" {
     cdn_endpoint => {
       id   = azurerm_cdn_endpoint.cdn_endpoint[cdn_endpoint].id
       name = azurerm_cdn_endpoint.cdn_endpoint[cdn_endpoint].name
+      fqdn = azurerm_cdn_endpoint.cdn_endpoint[cdn_endpoint].fqdn
     }
   }
 }
