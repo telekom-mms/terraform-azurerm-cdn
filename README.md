@@ -1,5 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-
 # cdn
 
 This module manages Azure CDN Configuration.
@@ -8,39 +7,39 @@ This module manages Azure CDN Configuration.
 
 ## Requirements
 
-| Name      | Version |
-| --------- | ------- |
-| terraform | >=1.1   |
-| azurerm   | >=3.5   |
+| Name | Version |
+|------|---------|
+| terraform | >=1.1 |
+| azurerm | >=3.5 |
 
 ## Providers
 
-| Name    | Version |
-| ------- | ------- |
-| azurerm | >=3.5   |
+| Name | Version |
+|------|---------|
+| azurerm | >=3.5 |
 
 ## Resources
 
-| Name                                                          | Type     |
-| ------------------------------------------------------------- | -------- |
-| azurerm_cdn_endpoint.cdn_endpoint                             | resource |
+| Name | Type |
+|------|------|
+| azurerm_cdn_endpoint.cdn_endpoint | resource |
 | azurerm_cdn_endpoint_custom_domain.cdn_endpoint_custom_domain | resource |
-| azurerm_cdn_profile.cdn_profile                               | resource |
+| azurerm_cdn_profile.cdn_profile | resource |
 
 ## Inputs
 
-| Name                       | Description                                                                                  | Type  | Default | Required |
-| -------------------------- | -------------------------------------------------------------------------------------------- | ----- | ------- | :------: |
-| cdn_endpoint               | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}`    |    no    |
-| cdn_endpoint_custom_domain | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}`    |    no    |
-| cdn_profile                | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}`    |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| cdn_endpoint | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| cdn_endpoint_custom_domain | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| cdn_profile | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 
 ## Outputs
 
-| Name         | Description                  |
-| ------------ | ---------------------------- |
+| Name | Description |
+|------|-------------|
 | cdn_endpoint | azurerm_cdn_endpoint results |
-| cdn_profile  | azurerm_cdn_profile results  |
+| cdn_profile | azurerm_cdn_profile results |
 
 ## Examples
 
@@ -87,5 +86,4 @@ module "cdn" {
   }
 }
 ```
-
 <!-- END_TF_DOCS -->
