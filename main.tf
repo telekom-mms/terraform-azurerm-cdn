@@ -186,90 +186,90 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "cdn_frontdoor_firewall_policy"
   custom_block_response_status_code = local.cdn_frontdoor_firewall_policy[each.key].custom_block_response_status_code
   custom_block_response_body        = local.cdn_frontdoor_firewall_policy[each.key].custom_block_response_body
 
-  # dynamic "custom_rule" {
-  #   for_each = keys(local.cdn_frontdoor_firewall_policy[each.key].custom_rule)
+  dynamic "custom_rule" {
+    for_each = local.cdn_frontdoor_firewall_policy[each.key].custom_rule
 
-  #   content {
-  #     name                           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].name == "" ? custom_rule.key : local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].name
-  #     action                         = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].action
-  #     enabled                        = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].enabled
-  #     priority                       = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].priority
-  #     type                           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].type
-  #     rate_limit_duration_in_minutes = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].rate_limit_duration_in_minutes
-  #     rate_limit_threshold           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].rate_limit_threshold
+    content {
+      name                           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].name == "" ? custom_rule.key : local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].name
+      action                         = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].action
+      enabled                        = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].enabled
+      priority                       = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].priority
+      type                           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].type
+      rate_limit_duration_in_minutes = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].rate_limit_duration_in_minutes
+      rate_limit_threshold           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].rate_limit_threshold
 
-  #     dynamic "match_condition" {
-  #       for_each = keys(local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition)
+      dynamic "match_condition" {
+        for_each = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition
 
-  #       content {
-  #         match_variable     = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].match_variable
-  #         match_values       = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].match_values
-  #         operator           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].operator
-  #         selector           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].selector
-  #         negation_condition = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].negation_condition
-  #         transforms         = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].transforms
-  #       }
-  #     }
-  #   }
-  # }
+        content {
+          match_variable     = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].match_variable
+          match_values       = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].match_values
+          operator           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].operator
+          selector           = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].selector
+          negation_condition = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].negation_condition
+          transforms         = local.cdn_frontdoor_firewall_policy[each.key].custom_rule[custom_rule.key].match_condition[match_condition.key].transforms
+        }
+      }
+    }
+  }
 
-  # dynamic "managed_rule" {
-  #   for_each = local.cdn_frontdoor_firewall_policy[each.key].managed_rule
+  dynamic "managed_rule" {
+    for_each = local.cdn_frontdoor_firewall_policy[each.key].managed_rule
 
-  #   content {
-  #     type    = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].type
-  #     version = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].version
-  #     action  = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].action
+    content {
+      type    = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].type
+      version = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].version
+      action  = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].action
 
-  #     dynamic "exclusion" {
-  #       for_each = keys(local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion)
+      dynamic "exclusion" {
+        for_each = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion
 
-  #       content {
-  #         match_variable = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion[exclusion.key].match_variable
-  #         operator       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion[exclusion.key].operator
-  #         selector       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion[exclusion.key].selector
-  #       }
-  #     }
+        content {
+          match_variable = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion[exclusion.key].match_variable
+          operator       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion[exclusion.key].operator
+          selector       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].exclusion[exclusion.key].selector
+        }
+      }
 
-  #     dynamic "override" {
-  #       for_each = keys(local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override)
+      dynamic "override" {
+        for_each = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override
 
-  #       content {
-  #         rule_group_name = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule_group_name
+        content {
+          rule_group_name = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule_group_name
 
-  #         dynamic "exclusion" {
-  #           for_each = keys(local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion)
+          dynamic "exclusion" {
+            for_each = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion
 
-  #           content {
-  #             match_variable = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion[exclusion.key].match_variable
-  #             operator       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion[exclusion.key].operator
-  #             selector       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion[exclusion.key].selector
-  #           }
-  #         }
+            content {
+              match_variable = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion[exclusion.key].match_variable
+              operator       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion[exclusion.key].operator
+              selector       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].exclusion[exclusion.key].selector
+            }
+          }
 
-  #         dynamic "rule" {
-  #           for_each = keys(local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule)
+          dynamic "rule" {
+            for_each = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule
 
-  #           content {
-  #             rule_id = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].rule_id
-  #             action  = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].action
-  #             enabled = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].enabled
+            content {
+              rule_id = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].rule_id
+              action  = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].action
+              enabled = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].enabled
 
-  #             dynamic "exclusion" {
-  #               for_each = keys(local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion)
+              dynamic "exclusion" {
+                for_each = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion
 
-  #               content {
-  #                 match_variable = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion[exclusion.key].match_variable
-  #                 operator       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion[exclusion.key].operator
-  #                 selector       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion[exclusion.key].selector
-  #               }
-  #             }
-  #           }
-  #         }
-  #       }
-  #     }
-  #   }
-  # }
+                content {
+                  match_variable = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion[exclusion.key].match_variable
+                  operator       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion[exclusion.key].operator
+                  selector       = local.cdn_frontdoor_firewall_policy[each.key].managed_rule[managed_rule.key].override[override.key].rule[rule.key].exclusion[exclusion.key].selector
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   tags = local.cdn_frontdoor_firewall_policy[each.key].tags
 }

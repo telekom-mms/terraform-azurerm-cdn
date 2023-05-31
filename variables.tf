@@ -304,11 +304,44 @@ locals {
       local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy],
       {
         for config in ["custom_rule"] :
-        config => merge(local.default.cdn_frontdoor_firewall_policy[config], local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config])
+        config => keys(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config]) == keys(local.default.cdn_frontdoor_firewall_policy[config]) ? {} : {
+          for key in keys(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config]) :
+          key => merge(
+            merge(local.default.cdn_frontdoor_firewall_policy[config], local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key]),
+            {
+              for subconfig in ["match_condition"] :
+              subconfig => keys(lookup(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key], subconfig, {})) == keys(local.default.cdn_frontdoor_firewall_policy[config][subconfig]) ? {} : {
+                for subkey in keys(lookup(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key], subconfig, {})) :
+                subkey => merge(local.default.cdn_frontdoor_firewall_policy[config][subconfig], local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key][subconfig][subkey])
+              }
+            }
+          )
+        }
       },
       {
         for config in ["managed_rule"] :
-        config => merge(local.default.cdn_frontdoor_firewall_policy[config], local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config])
+        config => keys(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config]) == keys(local.default.cdn_frontdoor_firewall_policy[config]) ? {} : {
+          for key in keys(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config]) :
+          key => merge(
+            merge(local.default.cdn_frontdoor_firewall_policy[config], local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key]),
+            {
+              for subconfig in ["override"] :
+              subconfig => keys(lookup(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key], subconfig, {})) == keys(local.default.cdn_frontdoor_firewall_policy[config][subconfig]) ? {} : {
+                for subkey in keys(lookup(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key], subconfig, {})) :
+                subkey => merge(
+                  merge(local.default.cdn_frontdoor_firewall_policy[config][subconfig], local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key][subconfig][subkey]),
+                  {
+                    for subsubconfig in ["rule"] :
+                    subsubconfig => keys(lookup(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key][subconfig][subkey], subsubconfig, {})) == keys(local.default.cdn_frontdoor_firewall_policy[config][subconfig][subsubconfig]) ? {} : {
+                      for subsubkey in keys(lookup(local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key][subconfig][subkey], subsubconfig, {})) :
+                      subsubkey => merge(local.default.cdn_frontdoor_firewall_policy[config][subconfig][subsubconfig], local.cdn_frontdoor_firewall_policy_values[cdn_frontdoor_firewall_policy][config][key][subconfig][subkey][subsubconfig][subsubkey])
+                    }
+                  }
+                )
+              }
+            },
+          )
+        }
       }
     )
   }
