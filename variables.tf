@@ -98,6 +98,16 @@ variable "cdn_frontdoor_route" {
   default     = {}
   description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
 }
+variable "cdn_frontdoor_rule_set" {
+  type        = any
+  default     = {}
+  description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
+}
+variable "cdn_frontdoor_rule" {
+  type        = any
+  default     = {}
+  description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
+}
 variable "cdn_frontdoor_firewall_policy" {
   type        = any
   default     = {}
@@ -177,6 +187,131 @@ locals {
         content_types_to_compress     = null
       }
     }
+    cdn_frontdoor_rule_set = {
+      name = ""
+    }
+    cdn_frontdoor_rule = {
+      name              = ""
+      behavior_on_match = null
+      actions = {
+        url_rewrite_action = {
+          preserve_unmatched_path = null
+        }
+        url_redirect_action = {
+          redirect_protocol    = null
+          destination_path     = null
+          query_string         = null
+          destination_fragment = null
+        }
+        route_configuration_override_action = {
+          cache_duration                = null
+          cdn_frontdoor_origin_group_id = null
+          forwarding_protocol           = null
+          query_string_caching_behavior = null
+          query_string_parameters       = null
+          compression_enabled           = null
+          cache_behavior                = null
+        }
+        request_header_action = {
+          value = null
+        }
+        response_header_action = {
+          value = null
+        }
+      }
+      conditions = {
+        remote_address_condition = {
+          operator         = null
+          negate_condition = null
+          match_values     = null
+        }
+        request_method_condition = {
+          operator         = null
+          negate_condition = null
+        }
+        query_string_condition = {
+          operator         = null
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        post_args_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        request_uri_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        request_header_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        request_body_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        request_scheme_condition = {
+          operator         = null
+          negate_condition = null
+          match_values     = null
+        }
+        url_path_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        url_file_extension_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        url_filename_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        http_version_condition = {
+          operator         = null
+          negate_condition = null
+        }
+        cookies_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        is_device_condition = {
+          operator         = null
+          negate_condition = null
+          match_values     = null
+        }
+        socket_address_condition = {
+          operator         = null
+          negate_condition = null
+          match_values     = null
+        }
+        client_port_condition = {
+          negate_condition = null
+          match_values     = null
+        }
+        server_port_condition = {
+          negate_condition = null
+        }
+        host_name_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        ssl_protocol_condition = {
+          operator         = null
+          negate_condition = null
+        }
+      }
+    }
     cdn_frontdoor_firewall_policy = {
       name                              = ""
       enabled                           = null
@@ -240,6 +375,10 @@ locals {
     for cdn_frontdoor_route in keys(var.cdn_frontdoor_route) :
     cdn_frontdoor_route => merge(local.default.cdn_frontdoor_route, var.cdn_frontdoor_route[cdn_frontdoor_route])
   }
+  cdn_frontdoor_rule_values = {
+    for cdn_frontdoor_rule in keys(var.cdn_frontdoor_rule) :
+    cdn_frontdoor_rule => merge(local.default.cdn_frontdoor_rule, var.cdn_frontdoor_rule[cdn_frontdoor_rule])
+  }
   cdn_frontdoor_firewall_policy_values = {
     for cdn_frontdoor_firewall_policy in keys(var.cdn_frontdoor_firewall_policy) :
     cdn_frontdoor_firewall_policy => merge(local.default.cdn_frontdoor_firewall_policy, var.cdn_frontdoor_firewall_policy[cdn_frontdoor_firewall_policy])
@@ -296,6 +435,56 @@ locals {
         for config in ["cache"] :
         config => merge(local.default.cdn_frontdoor_route[config], local.cdn_frontdoor_route_values[cdn_frontdoor_route][config])
       }
+    )
+  }
+  cdn_frontdoor_rule_set = {
+    for cdn_frontdoor_rule_set in keys(var.cdn_frontdoor_rule_set) :
+    cdn_frontdoor_rule_set => merge(local.default.cdn_frontdoor_rule_set, var.cdn_frontdoor_rule_set[cdn_frontdoor_rule_set])
+  }
+  cdn_frontdoor_rule = {
+    for cdn_frontdoor_rule in keys(var.cdn_frontdoor_rule) :
+    cdn_frontdoor_rule => merge(
+      local.cdn_frontdoor_rule_values[cdn_frontdoor_rule],
+      {
+        for config in ["actions"] :
+        config => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule], config, {}) == {} ? {} : {
+            for subconfig in [
+              "url_rewrite_action",
+              "url_redirect_action",
+              "route_configuration_override_action",
+              "request_header_action",
+              "response_header_action"
+            ] :
+            subconfig => merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
+        }
+      },
+      # {
+      #   for config in ["conditions"] :
+      #   config => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule], config, {}) == {} ? {} : {
+      #     for subconfig in [
+      #       "remote_address_condition",
+      #       "request_method_condition",
+      #       "query_string_condition",
+      #       "post_args_condition",
+      #       "request_uri_condition",
+      #       "request_header_condition",
+      #       "request_body_condition",
+      #       "request_scheme_condition",
+      #       "url_path_condition",
+      #       "url_file_extension_condition ",
+      #       "url_filename_condition",
+      #       "http_version_condition",
+      #       "cookies_condition",
+      #       "is_device_condition",
+      #       "socket_address_condition",
+      #       "client_port_condition",
+      #       "server_port_condition",
+      #       "host_name_condition",
+      #       "ssl_protocol_condition",
+      #     ] :
+      #     subconfig => merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
+      #   }
+      # }
     )
   }
   cdn_frontdoor_firewall_policy = {

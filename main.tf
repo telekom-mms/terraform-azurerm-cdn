@@ -174,6 +174,290 @@ resource "azurerm_cdn_frontdoor_route" "cdn_frontdoor_route" {
   }
 }
 
+resource "azurerm_cdn_frontdoor_rule_set" "cdn_frontdoor_rule_set" {
+  for_each = var.cdn_frontdoor_rule_set
+
+  name                     = local.cdn_frontdoor_rule_set[each.key].name == "" ? each.key : local.cdn_frontdoor_rule_set[each.key].name
+  cdn_frontdoor_profile_id = local.cdn_frontdoor_rule_set[each.key].cdn_frontdoor_profile_id
+}
+
+resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
+  for_each = var.cdn_frontdoor_rule
+
+  name                      = local.cdn_frontdoor_rule[each.key].name == "" ? each.key : local.cdn_frontdoor_rule[each.key].name
+  cdn_frontdoor_rule_set_id = local.cdn_frontdoor_rule[each.key].cdn_frontdoor_rule_set_id
+  order                     = local.cdn_frontdoor_rule[each.key].order
+  behavior_on_match         = local.cdn_frontdoor_rule[each.key].behavior_on_match
+
+  actions {
+    # dynamic "url_rewrite_action" {
+    #   for_each = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action == {} ? [] : [0]
+
+    #   content {
+    #     source_pattern          = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action.source_pattern
+    #     destination             = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action.destination
+    #     preserve_unmatched_path = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action.preserve_unmatched_path
+    #   }
+    # }
+
+    dynamic "url_redirect_action" {
+      for_each = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action == {} ? [] : [0]
+
+      content {
+        redirect_type        = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.redirect_type
+        destination_hostname = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.destination_hostname
+        redirect_protocol    = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.redirect_protocol
+        destination_path     = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.destination_path
+        query_string         = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.query_string
+        destination_fragment = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.destination_fragment
+      }
+    }
+
+    # dynamic "route_configuration_override_action" {
+    #   for_each = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action == {} ? [] : [0]
+
+    #   content {
+    #     cache_duration                = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action.cache_duration
+    #     cdn_frontdoor_origin_group_id = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action.cdn_frontdoor_origin_group_id
+    #     forwarding_protocol           = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action.forwarding_protocol
+    #     query_string_caching_behavior = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action.query_string_caching_behavior
+    #     query_string_parameters       = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action.query_string_parameters
+    #     compression_enabled           = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action.compression_enabled
+    #     cache_behavior                = local.cdn_frontdoor_rule[each.key].actions.route_configuration_override_action.cache_behavior
+    #   }
+    # }
+
+    # dynamic "request_header_action" {
+    #   for_each = local.cdn_frontdoor_rule[each.key].actions.request_header_action == {} ? [] : [0]
+
+    #   content {
+    #     header_action = local.cdn_frontdoor_rule[each.key].actions.request_header_action.header_action
+    #     header_name   = local.cdn_frontdoor_rule[each.key].actions.request_header_action.header_name
+    #     value         = local.cdn_frontdoor_rule[each.key].actions.request_header_action.value
+    #   }
+    # }
+
+    # dynamic "response_header_action" {
+    #   for_each = local.cdn_frontdoor_rule[each.key].actions.response_header_action == {} ? [] : [0]
+
+    #   content {
+    #     header_action = local.cdn_frontdoor_rule[each.key].actions.response_header_action.header_action
+    #     header_name   = local.cdn_frontdoor_rule[each.key].actions.response_header_action.header_name
+    #     value         = local.cdn_frontdoor_rule[each.key].actions.response_header_action.value
+    #   }
+    # }
+  }
+
+  dynamic "conditions" {
+    for_each = local.cdn_frontdoor_rule[each.key].conditions
+
+    content {
+      dynamic "remote_address_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition.match_values
+        }
+      }
+
+      dynamic "request_method_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_method_condition))) == [] ? [] : [0]
+
+        content {
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition.negate_condition
+        }
+      }
+
+      dynamic "query_string_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.query_string_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.transforms
+        }
+      }
+
+      dynamic "post_args_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.post_args_condition))) == [] ? [] : [0]
+
+        content {
+          post_args_name   = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.post_args_name
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.transforms
+        }
+      }
+
+      dynamic "request_uri_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.transforms
+        }
+      }
+
+      dynamic "request_header_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_header_condition))) == [] ? [] : [0]
+
+        content {
+          header_name      = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.header_name
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.transforms
+        }
+      }
+
+      dynamic "request_body_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_body_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.transforms
+        }
+      }
+
+      dynamic "request_scheme_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition.match_values
+        }
+      }
+
+      dynamic "url_path_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.url_path_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.transforms
+        }
+      }
+
+      dynamic "url_file_extension_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.transforms
+        }
+      }
+
+      dynamic "url_filename_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.transforms
+        }
+      }
+
+      dynamic "http_version_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.http_version_condition))) == [] ? [] : [0]
+
+        content {
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition.negate_condition
+        }
+      }
+
+      dynamic "cookies_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.cookies_condition))) == [] ? [] : [0]
+
+        content {
+          cookie_name      = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.cookie_name
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.transforms
+        }
+      }
+
+      dynamic "is_device_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.is_device_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition.match_values
+        }
+      }
+
+      dynamic "socket_address_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition.match_values
+        }
+      }
+
+      dynamic "client_port_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.client_port_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.match_values
+        }
+      }
+
+      dynamic "server_port_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.client_port_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.match_values
+        }
+      }
+
+      dynamic "host_name_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.host_name_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.transforms
+        }
+      }
+
+      dynamic "ssl_protocol_condition" {
+        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition))) == [] ? [] : [0]
+
+        content {
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition.operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition.match_values
+        }
+      }
+    }
+  }
+}
+
 resource "azurerm_cdn_frontdoor_firewall_policy" "cdn_frontdoor_firewall_policy" {
   for_each = var.cdn_frontdoor_firewall_policy
 
