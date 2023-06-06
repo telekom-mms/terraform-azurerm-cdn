@@ -192,13 +192,14 @@ locals {
     }
     cdn_frontdoor_rule = {
       name              = ""
-      behavior_on_match = null
+      behavior_on_match = "Stop" // defined default
       actions = {
         url_rewrite_action = {
           preserve_unmatched_path = null
         }
         url_redirect_action = {
-          redirect_protocol    = null
+          redirect_type = "Found" // defined default
+          redirect_protocol    = "Https" // defined default
           destination_path     = null
           query_string         = null
           destination_fragment = null
@@ -447,44 +448,44 @@ locals {
       local.cdn_frontdoor_rule_values[cdn_frontdoor_rule],
       {
         for config in ["actions"] :
-        config => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule], config, {}) == {} ? {} : {
-            for subconfig in [
-              "url_rewrite_action",
-              "url_redirect_action",
-              "route_configuration_override_action",
-              "request_header_action",
-              "response_header_action"
-            ] :
-            subconfig => merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
+        config => {
+          for subconfig in [
+            "url_rewrite_action",
+            "url_redirect_action",
+            "route_configuration_override_action",
+            "request_header_action",
+            "response_header_action"
+          ] :
+          subconfig => merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
         }
       },
-      # {
-      #   for config in ["conditions"] :
-      #   config => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule], config, {}) == {} ? {} : {
-      #     for subconfig in [
-      #       "remote_address_condition",
-      #       "request_method_condition",
-      #       "query_string_condition",
-      #       "post_args_condition",
-      #       "request_uri_condition",
-      #       "request_header_condition",
-      #       "request_body_condition",
-      #       "request_scheme_condition",
-      #       "url_path_condition",
-      #       "url_file_extension_condition ",
-      #       "url_filename_condition",
-      #       "http_version_condition",
-      #       "cookies_condition",
-      #       "is_device_condition",
-      #       "socket_address_condition",
-      #       "client_port_condition",
-      #       "server_port_condition",
-      #       "host_name_condition",
-      #       "ssl_protocol_condition",
-      #     ] :
-      #     subconfig => merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
-      #   }
-      # }
+      {
+        for config in ["conditions"] :
+        config => {
+          for subconfig in [
+            "remote_address_condition",
+            "request_method_condition",
+            "query_string_condition",
+            "post_args_condition",
+            "request_uri_condition",
+            "request_header_condition",
+            "request_body_condition",
+            "request_scheme_condition",
+            "url_path_condition",
+            "url_file_extension_condition",
+            "url_filename_condition",
+            "http_version_condition",
+            "cookies_condition",
+            "is_device_condition",
+            "socket_address_condition",
+            "client_port_condition",
+            "server_port_condition",
+            "host_name_condition",
+            "ssl_protocol_condition",
+          ] :
+            subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, null) == null ? null : merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
+        }
+      }
     )
   }
   cdn_frontdoor_firewall_policy = {

@@ -182,5 +182,9 @@ output "variables" {
         key => local.cdn_frontdoor_security_policy[key]
       }
     }
+    variable = {
+      for key in keys(var.cdn_frontdoor_rule) :
+      key => local.cdn_frontdoor_rule[key].conditions.request_header_condition
+    }
   }
 }

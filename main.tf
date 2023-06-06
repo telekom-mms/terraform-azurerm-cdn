@@ -249,11 +249,11 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
   }
 
   dynamic "conditions" {
-    for_each = local.cdn_frontdoor_rule[each.key].conditions
+    for_each = lookup(var.cdn_frontdoor_rule[each.key], "conditions", {}) == {} ? [] : [0]
 
     content {
       dynamic "remote_address_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition.operator
@@ -263,7 +263,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "request_method_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_method_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition == null ? [] : [0]
 
         content {
           match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition.match_values
@@ -273,7 +273,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "query_string_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.query_string_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.operator
@@ -284,7 +284,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "post_args_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.post_args_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition == null ? [] : [0]
 
         content {
           post_args_name   = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.post_args_name
@@ -296,7 +296,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "request_uri_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.operator
@@ -307,7 +307,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "request_header_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_header_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition == null ? [] : [0]
 
         content {
           header_name      = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.header_name
@@ -319,7 +319,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "request_body_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_body_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.operator
@@ -330,7 +330,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "request_scheme_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition.operator
@@ -340,7 +340,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "url_path_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.url_path_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.operator
@@ -351,7 +351,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "url_file_extension_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.operator
@@ -362,7 +362,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "url_filename_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.operator
@@ -373,7 +373,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "http_version_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.http_version_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition == null ? [] : [0]
 
         content {
           match_values     = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition.match_values
@@ -383,7 +383,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "cookies_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.cookies_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition == null ? [] : [0]
 
         content {
           cookie_name      = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.cookie_name
@@ -395,7 +395,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "is_device_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.is_device_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition.operator
@@ -405,7 +405,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "socket_address_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition.operator
@@ -415,7 +415,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "client_port_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.client_port_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.operator
@@ -425,7 +425,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "server_port_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.client_port_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.server_port_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.operator
@@ -435,7 +435,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "host_name_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.host_name_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.operator
@@ -446,7 +446,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
       }
 
       dynamic "ssl_protocol_condition" {
-        for_each = flatten(compact(values(local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition))) == [] ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition == null ? [] : [0]
 
         content {
           operator         = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition.operator
