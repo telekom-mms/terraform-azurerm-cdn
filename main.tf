@@ -249,7 +249,7 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
   }
 
   dynamic "conditions" {
-    for_each = lookup(var.cdn_frontdoor_rule[each.key], "conditions", {}) == {} ? [] : [0]
+    for_each = local.cdn_frontdoor_rule[each.key].conditions == null ? [] : [0]
 
     content {
       dynamic "remote_address_condition" {

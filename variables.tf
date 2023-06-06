@@ -461,7 +461,7 @@ locals {
       },
       {
         for config in ["conditions"] :
-        config => {
+        config => lookup(var.cdn_frontdoor_rule[cdn_frontdoor_rule], config, {}) == {} ? null : {
           for subconfig in [
             "remote_address_condition",
             "request_method_condition",
