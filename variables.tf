@@ -108,6 +108,11 @@ variable "cdn_frontdoor_rule" {
   default     = {}
   description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
 }
+variable "cdn_frontdoor_secret" {
+  type        = any
+  default     = {}
+  description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
+}
 variable "cdn_frontdoor_firewall_policy" {
   type        = any
   default     = {}
@@ -313,6 +318,9 @@ locals {
         }
       }
     }
+    cdn_frontdoor_secret = {
+      name = ""
+    }
     cdn_frontdoor_firewall_policy = {
       name                              = ""
       enabled                           = null
@@ -487,6 +495,10 @@ locals {
         }
       }
     )
+  }
+  cdn_frontdoor_secret = {
+    for cdn_frontdoor_secret in keys(var.cdn_frontdoor_secret) :
+    cdn_frontdoor_secret => merge(local.default.cdn_frontdoor_secret, var.cdn_frontdoor_secret[cdn_frontdoor_secret])
   }
   cdn_frontdoor_firewall_policy = {
     for cdn_frontdoor_firewall_policy in keys(var.cdn_frontdoor_firewall_policy) :

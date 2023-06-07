@@ -458,6 +458,19 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
   }
 }
 
+resource "azurerm_cdn_frontdoor_secret" "cdn_frontdoor_secret" {
+  for_each = var.cdn_frontdoor_secret
+
+  name                              = local.cdn_frontdoor_secret[each.key].name == "" ? each.key : local.cdn_frontdoor_secret[each.key].name
+  cdn_frontdoor_profile_id = local.cdn_frontdoor_secret[each.key].cdn_frontdoor_profile_id
+
+  secret {
+    customer_certificate {
+      key_vault_certificate_id = local.cdn_frontdoor_secret[each.key].secret.customer_certificate.key_vault_certificate_id
+    }
+  }
+}
+
 resource "azurerm_cdn_frontdoor_firewall_policy" "cdn_frontdoor_firewall_policy" {
   for_each = var.cdn_frontdoor_firewall_policy
 

@@ -111,6 +111,17 @@ output "cdn_frontdoor_rule" {
   }
 }
 
+output "cdn_frontdoor_secret" {
+  description = "Outputs all attributes of resource_type."
+  value = {
+    for cdn_frontdoor_secret in keys(azurerm_cdn_frontdoor_secret.cdn_frontdoor_secret) :
+    cdn_frontdoor_secret => {
+      for key, value in azurerm_cdn_frontdoor_secret.cdn_frontdoor_secret[cdn_frontdoor_secret] :
+      key => value
+    }
+  }
+}
+
 output "cdn_frontdoor_firewall_policy" {
   description = "Outputs all attributes of resource_type."
   value = {
@@ -173,6 +184,10 @@ output "variables" {
         for key in keys(var.cdn_frontdoor_rule) :
         key => local.cdn_frontdoor_rule[key]
       }
+      cdn_frontdoor_secret = {
+        for key in keys(var.cdn_frontdoor_secret) :
+        key => local.cdn_frontdoor_secret[key]
+      }
       cdn_frontdoor_firewall_policy = {
         for key in keys(var.cdn_frontdoor_firewall_policy) :
         key => local.cdn_frontdoor_firewall_policy[key]
@@ -181,10 +196,6 @@ output "variables" {
         for key in keys(var.cdn_frontdoor_security_policy) :
         key => local.cdn_frontdoor_security_policy[key]
       }
-    }
-    variable = {
-      for key in keys(var.cdn_frontdoor_rule) :
-      key => local.cdn_frontdoor_rule[key].conditions.request_header_condition
     }
   }
 }
