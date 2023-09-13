@@ -434,6 +434,7 @@ locals {
         rate_limit_duration_in_minutes = null
         rate_limit_threshold           = null
         match_condition = {
+          match_values       = [] // define default
           selector           = null
           negation_condition = null
           transforms         = null
