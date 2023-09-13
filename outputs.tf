@@ -1,27 +1,35 @@
-# output "cdn_profile" {
-#   description = "azurerm_cdn_profile results"
-#   value = {
-#     for cdn_profile in keys(azurerm_cdn_profile.cdn_profile) :
-#     cdn_profile => {
-#       id   = azurerm_cdn_profile.cdn_profile[cdn_profile].id
-#       name = azurerm_cdn_profile.cdn_profile[cdn_profile].name
-#     }
-#   }
-# }
+output "cdn_profile" {
+  description = "Outputs all attributes of resource_type."
+  value = {
+    for cdn_profile in keys(azurerm_cdn_profile.cdn_profile) :
+    cdn_profile => {
+      for key, value in azurerm_cdn_profile.cdn_profile[cdn_profile] :
+      key => value
+    }
+  }
+}
 
-# output "cdn_endpoint" {
-#   description = "azurerm_cdn_endpoint results"
-#   value = {
-#     for cdn_endpoint in keys(azurerm_cdn_endpoint.cdn_endpoint) :
-#     cdn_endpoint => {
-#       id   = azurerm_cdn_endpoint.cdn_endpoint[cdn_endpoint].id
-#       name = azurerm_cdn_endpoint.cdn_endpoint[cdn_endpoint].name
-#       fqdn = azurerm_cdn_endpoint.cdn_endpoint[cdn_endpoint].fqdn
-#     }
-#   }
-# }
+output "cdn_endpoint" {
+  description = "Outputs all attributes of resource_type."
+  value = {
+    for cdn_endpoint in keys(azurerm_cdn_endpoint.cdn_endpoint) :
+    cdn_endpoint => {
+      for key, value in azurerm_cdn_endpoint.cdn_endpoint[cdn_endpoint] :
+      key => value
+    }
+  }
+}
 
-#####
+output "cdn_endpoint_custom_domain" {
+  description = "Outputs all attributes of resource_type."
+  value = {
+    for cdn_endpoint_custom_domain in keys(azurerm_cdn_endpoint_custom_domain.cdn_endpoint_custom_domain) :
+    cdn_endpoint_custom_domain => {
+      for key, value in azurerm_cdn_endpoint_custom_domain.cdn_endpoint_custom_domain[cdn_endpoint_custom_domain] :
+      key => value
+    }
+  }
+}
 
 output "cdn_frontdoor_profile" {
   description = "Outputs all attributes of resource_type."
@@ -152,6 +160,18 @@ output "variables" {
       variable => local.default[variable]
     }
     merged = {
+      cdn_profile = {
+        for key in keys(var.cdn_profile) :
+        key => local.cdn_profile[key]
+      }
+      cdn_endpoint = {
+        for key in keys(var.cdn_endpoint) :
+        key => local.cdn_endpoint[key]
+      }
+      cdn_endpoint_custom_domain = {
+        for key in keys(var.cdn_endpoint_custom_domain) :
+        key => local.cdn_endpoint_custom_domain[key]
+      }
       cdn_frontdoor_profile = {
         for key in keys(var.cdn_frontdoor_profile) :
         key => local.cdn_frontdoor_profile[key]

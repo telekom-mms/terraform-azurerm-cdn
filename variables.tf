@@ -1,73 +1,18 @@
-# variable "cdn_profile" {
-#   type        = any
-#   default     = {}
-#   description = "resource definition, default settings are defined within locals and merged with var settings"
-# }
-# variable "cdn_endpoint" {
-#   type        = any
-#   default     = {}
-#   description = "resource definition, default settings are defined within locals and merged with var settings"
-# }
-# variable "cdn_endpoint_custom_domain" {
-#   type        = any
-#   default     = {}
-#   description = "resource definition, default settings are defined within locals and merged with var settings"
-# }
-
-# locals {
-#   default = {
-#     # resource definition
-#     cdn_profile = {
-#       name = ""
-#       tags = {}
-#     }
-#     cdn_endpoint = {
-#       name                          = ""
-#       is_http_allowed               = true
-#       querystring_caching_behaviour = "IgnoreQueryString"
-#       tags                          = {}
-#     }
-#     cdn_endpoint_custom_domain = {
-#       name = ""
-#       cdn_managed_https = {
-#         certificate_type = ""
-#         tls_version      = null
-#       }
-#       user_managed_https = {
-#         key_vault_certificate_id = ""
-#         tls_version              = null
-#       }
-#       tags = {}
-#     }
-#   }
-
-#   # compare and merge custom and default values
-#   cdn_endpoint_custom_domain_values = {
-#     for cdn_endpoint_custom_domain in keys(var.cdn_endpoint_custom_domain) :
-#     cdn_endpoint_custom_domain => merge(local.default.cdn_endpoint_custom_domain, var.cdn_endpoint_custom_domain[cdn_endpoint_custom_domain])
-#   }
-
-#   # merge all custom and default values
-#   cdn_profile = {
-#     for cdn_profile in keys(var.cdn_profile) :
-#     cdn_profile => merge(local.default.cdn_profile, var.cdn_profile[cdn_profile])
-#   }
-#   cdn_endpoint = {
-#     for cdn_endpoint in keys(var.cdn_endpoint) :
-#     cdn_endpoint => merge(local.default.cdn_endpoint, var.cdn_endpoint[cdn_endpoint])
-#   }
-#   cdn_endpoint_custom_domain = {
-#     for cdn_endpoint_custom_domain in keys(var.cdn_endpoint_custom_domain) :
-#     cdn_endpoint_custom_domain => merge(
-#       local.cdn_endpoint_custom_domain_values[cdn_endpoint_custom_domain],
-#       {
-#         for config in ["cdn_managed_https", "user_managed_https"] :
-#         config => merge(local.default.cdn_endpoint_custom_domain[config], local.cdn_endpoint_custom_domain_values[cdn_endpoint_custom_domain][config])
-#       }
-#     )
-#   }
-# }
-
+variable "cdn_profile" {
+  type        = any
+  default     = {}
+  description = "resource definition, default settings are defined within locals and merged with var settings"
+}
+variable "cdn_endpoint" {
+  type        = any
+  default     = {}
+  description = "resource definition, default settings are defined within locals and merged with var settings"
+}
+variable "cdn_endpoint_custom_domain" {
+  type        = any
+  default     = {}
+  description = "resource definition, default settings are defined within locals and merged with var settings"
+}
 variable "cdn_frontdoor_profile" {
   type        = any
   default     = {}
@@ -127,6 +72,158 @@ variable "cdn_frontdoor_security_policy" {
 locals {
   default = {
     // resource definition
+    cdn_profile = {
+      name = ""
+      tags = {}
+    }
+    cdn_endpoint = {
+      name                          = ""
+      is_http_allowed               = null
+      is_https_allowed              = null
+      content_types_to_compress     = null
+      is_compression_enabled        = null
+      querystring_caching_behaviour = null
+      optimization_type             = null
+      origin_host_header            = null
+      origin_path                   = null
+      probe_path                    = null
+      origin = {
+        name       = ""
+        http_port  = null
+        https_port = null
+      }
+      geo_filter = {
+        action = "Block" // define default
+      }
+      delivery_rule = {
+        name = ""
+        cache_expiration_action = {
+          duration = null
+        }
+        cache_key_query_string_action = {
+          parameters = null
+        }
+        cookies_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        device_condition = {
+          operator         = null
+          negate_condition = null
+        }
+        http_version_condition = {
+          operator         = null
+          negate_condition = null
+        }
+        modify_request_header_action = {
+          value = null
+        }
+        modify_response_header_action = {
+          value = null
+        }
+        post_arg_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        query_string_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        remote_address_condition = {
+          negate_condition = null
+          match_values     = null
+        }
+        request_body_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        request_header_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        request_method_condition = {
+          negate_condition = null
+          match_values     = null
+        }
+        request_scheme_condition = {
+          negate_condition = null
+          match_values     = null
+        }
+        request_uri_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        url_file_extension_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        url_file_name_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        url_path_condition = {
+          negate_condition = null
+          match_values     = null
+          transforms       = null
+        }
+        url_redirect_action = {
+          protocol     = null
+          hostname     = null
+          path         = null
+          fragment     = null
+          query_string = null
+        }
+        url_rewrite_action = {
+          preserve_unmatched_path = null
+        }
+      }
+      global_delivery_rule = {
+        cache_expiration_action = {
+          duration = null
+        }
+        cache_key_query_string_action = {
+          parameters = null
+        }
+        modify_request_header_action = {
+          name  = ""
+          value = null
+        }
+        modify_response_header_action = {
+          name  = ""
+          value = null
+        }
+        url_redirect_action = {
+          protocol     = null
+          hostname     = null
+          path         = null
+          fragment     = null
+          query_string = null
+        }
+        url_rewrite_action = {
+          preserve_unmatched_path = null
+        }
+      }
+      tags = {}
+    }
+    cdn_endpoint_custom_domain = {
+      name = ""
+      cdn_managed_https = {
+        tls_version = null
+      }
+      user_managed_https = {
+        key_vault_certificate_id = null
+        key_vault_secret_id      = null
+        tls_version              = null
+      }
+    }
     cdn_frontdoor_profile = {
       name                     = ""
       sku_name                 = "Standard_AzureFrontDoor"
@@ -148,13 +245,14 @@ locals {
       }
     }
     cdn_frontdoor_origin = {
-      name               = ""
-      enabled            = true // created origin should be enabled by default
-      http_port          = null
-      https_port         = null
-      origin_host_header = null
-      priority           = null
-      weight             = null
+      name                           = ""
+      certificate_name_check_enabled = true // define default
+      enabled                        = true // created origin should be enabled by default
+      http_port                      = null
+      https_port                     = null
+      origin_host_header             = null
+      priority                       = null
+      weight                         = null
       private_link = {
         request_message = null
         target_type     = null
@@ -203,7 +301,7 @@ locals {
           preserve_unmatched_path = null
         }
         url_redirect_action = {
-          redirect_type = "Found" // defined default
+          redirect_type        = "Found" // defined default
           redirect_protocol    = "Https" // defined default
           destination_path     = null
           query_string         = null
@@ -368,6 +466,14 @@ locals {
   }
 
   // compare and merge custom and default values
+  cdn_endpoint_values = {
+    for cdn_endpoint in keys(var.cdn_endpoint) :
+    cdn_endpoint => merge(local.default.cdn_endpoint, var.cdn_endpoint[cdn_endpoint])
+  }
+  cdn_endpoint_custom_domain_values = {
+    for cdn_endpoint_custom_domain in keys(var.cdn_endpoint_custom_domain) :
+    cdn_endpoint_custom_domain => merge(local.default.cdn_endpoint_custom_domain, var.cdn_endpoint_custom_domain[cdn_endpoint_custom_domain])
+  }
   cdn_frontdoor_origin_group_values = {
     for cdn_frontdoor_origin_group in keys(var.cdn_frontdoor_origin_group) :
     cdn_frontdoor_origin_group => merge(local.default.cdn_frontdoor_origin_group, var.cdn_frontdoor_origin_group[cdn_frontdoor_origin_group])
@@ -398,6 +504,81 @@ locals {
   }
 
   // deep merge of all custom and default values
+  cdn_profile = {
+    for cdn_profile in keys(var.cdn_profile) :
+    cdn_profile => merge(local.default.cdn_profile, var.cdn_profile[cdn_profile])
+  }
+  cdn_endpoint = {
+    for cdn_endpoint in keys(var.cdn_endpoint) :
+    cdn_endpoint => merge(
+      local.cdn_endpoint_values[cdn_endpoint],
+      {
+        for config in ["origin", "geo_filter"] :
+        config => keys(local.cdn_endpoint_values[cdn_endpoint][config]) == keys(local.default.cdn_endpoint[config]) ? {} : {
+          for key in keys(local.cdn_endpoint_values[cdn_endpoint][config]) :
+          key => merge(local.default.cdn_endpoint[config], local.cdn_endpoint_values[cdn_endpoint][config][key])
+        }
+      },
+      {
+        for config in ["delivery_rule"] :
+        config => keys(local.cdn_endpoint_values[cdn_endpoint][config]) == keys(local.default.cdn_endpoint[config]) ? {} : {
+          for key in keys(local.cdn_endpoint_values[cdn_endpoint][config]) :
+          key => merge(
+            merge(local.default.cdn_endpoint[config], local.cdn_endpoint_values[cdn_endpoint][config][key]),
+            {
+              for subconfig in [
+                "cache_expiration_action",
+                "cache_key_query_string_action",
+                "cookies_condition",
+                "device_condition",
+                "http_version_condition",
+                "modify_request_header_action",
+                "modify_response_header_action",
+                "post_arg_condition",
+                "query_string_condition",
+                "remote_address_condition",
+                "request_body_condition",
+                "request_header_condition",
+                "request_method_condition",
+                "request_scheme_condition",
+                "request_uri_condition",
+                "url_file_extension_condition",
+                "url_file_name_condition",
+                "url_path_condition",
+                "url_redirect_action",
+                "url_rewrite_action",
+              ] :
+              subconfig => lookup(local.cdn_endpoint_values[cdn_endpoint][config][key], subconfig, {}) == {} ? null : merge(local.default.cdn_endpoint[config][subconfig], local.cdn_endpoint_values[cdn_endpoint][config][key][subconfig])
+            }
+          )
+        }
+      },
+      {
+        for config in ["global_delivery_rule"] :
+        config => lookup(var.cdn_endpoint[cdn_endpoint], config, {}) == {} ? null : {
+          for subconfig in [
+            "cache_expiration_action",
+            "cache_key_query_string_action",
+            "modify_request_header_action",
+            "modify_response_header_action",
+            "url_redirect_action",
+            "url_rewrite_action",
+          ] :
+          subconfig => lookup(local.cdn_endpoint_values[cdn_endpoint][config], subconfig, {}) == {} ? null : merge(local.default.cdn_endpoint[config][subconfig], local.cdn_endpoint_values[cdn_endpoint][config][subconfig])
+        }
+      }
+    )
+  }
+  cdn_endpoint_custom_domain = {
+    for cdn_endpoint_custom_domain in keys(var.cdn_endpoint_custom_domain) :
+    cdn_endpoint_custom_domain => merge(
+      local.cdn_endpoint_custom_domain_values[cdn_endpoint_custom_domain],
+      {
+        for config in ["cdn_managed_https", "user_managed_https"] :
+        config => lookup(var.cdn_endpoint_custom_domain[cdn_endpoint_custom_domain], config, {}) == {} ? null : merge(local.default.cdn_endpoint_custom_domain[config], local.cdn_endpoint_custom_domain_values[cdn_endpoint_custom_domain][config])
+      }
+    )
+  }
   cdn_frontdoor_profile = {
     for cdn_frontdoor_profile in keys(var.cdn_frontdoor_profile) :
     cdn_frontdoor_profile => merge(local.default.cdn_frontdoor_profile, var.cdn_frontdoor_profile[cdn_frontdoor_profile])
@@ -464,7 +645,7 @@ locals {
             "request_header_action",
             "response_header_action"
           ] :
-          subconfig => merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
+          subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}) == {} ? null : merge(local.default.cdn_frontdoor_rule[config][subconfig], local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config][subconfig])
         }
       },
       {
@@ -491,7 +672,7 @@ locals {
             "host_name_condition",
             "ssl_protocol_condition",
           ] :
-            subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, null) == null ? null : merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
+          subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, null) == null ? null : merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
         }
       }
     )
