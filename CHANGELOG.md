@@ -1,18 +1,44 @@
 # Changelog
 
-## [1.0.1](https://github.com/T-Systems-MMS/terraform-azurerm-cdn/tree/1.0.1) (2022-07-25)
+## [2.0.1](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.1) (2023-09-13)
 
-[Full Changelog](https://github.com/T-Systems-MMS/terraform-azurerm-cdn/compare/1.0.0...1.0.1)
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.0...2.0.1)
+
+**Closed issues:**
+
+- Dependency Dashboard [\#5](https://github.com/telekom-mms/terraform-azurerm-cdn/issues/5)
+
+## [2.0.0](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.0) (2023-09-13)
+
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/1.0.1...2.0.0)
+
+**Implemented enhancements:**
+
+- Refactoring [\#14](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/14) ([michaelamattes](https://github.com/michaelamattes))
 
 **Merged pull requests:**
 
-- Update creyD/prettier\_action action to v3.3 [\#4](https://github.com/T-Systems-MMS/terraform-azurerm-cdn/pull/4) ([renovate[bot]](https://github.com/apps/renovate))
-- Update actions/checkout action to v2.4.2 [\#3](https://github.com/T-Systems-MMS/terraform-azurerm-cdn/pull/3) ([renovate[bot]](https://github.com/apps/renovate))
-- add renovate config [\#2](https://github.com/T-Systems-MMS/terraform-azurerm-cdn/pull/2) ([michaelamattes](https://github.com/michaelamattes))
+- add Renovate Dependency Dashboard and automatic merge on patch updates [\#12](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/12) ([michaelamattes](https://github.com/michaelamattes))
+- Update actions/checkout action to v3.2.0 [\#11](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/11) ([renovate[bot]](https://github.com/apps/renovate))
+- Update actions/checkout action to v3.1.0 [\#10](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/10) ([renovate[bot]](https://github.com/apps/renovate))
+- Update hashicorp/setup-terraform action to v2 [\#9](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/9) ([renovate[bot]](https://github.com/apps/renovate))
+- Update creyD/prettier\_action action to v4 [\#8](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/8) ([renovate[bot]](https://github.com/apps/renovate))
+- Update actions/checkout action to v3 [\#7](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/7) ([renovate[bot]](https://github.com/apps/renovate))
+- Update github-actions-x/commit action to v2.9 [\#6](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/6) ([renovate[bot]](https://github.com/apps/renovate))
 
-## [1.0.0](https://github.com/T-Systems-MMS/terraform-azurerm-cdn/tree/1.0.0) (2022-05-09)
+## [1.0.1](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/1.0.1) (2022-07-25)
 
-[Full Changelog](https://github.com/T-Systems-MMS/terraform-azurerm-cdn/compare/a0c951968b5bdfb0c6d0e0832ff653f71501fcd4...1.0.0)
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/1.0.0...1.0.1)
+
+**Merged pull requests:**
+
+- Update creyD/prettier\_action action to v3.3 [\#4](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/4) ([renovate[bot]](https://github.com/apps/renovate))
+- Update actions/checkout action to v2.4.2 [\#3](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/3) ([renovate[bot]](https://github.com/apps/renovate))
+- add renovate config [\#2](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/2) ([michaelamattes](https://github.com/michaelamattes))
+
+## [1.0.0](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/1.0.0) (2022-05-09)
+
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/a0c951968b5bdfb0c6d0e0832ff653f71501fcd4...1.0.0)
 
 
 
