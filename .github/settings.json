@@ -1,0 +1,26 @@
+{
+  "repos": {
+    "description": "A Terraform module that manages the container resources from the azurerm provider.",
+    "visibility": "public",
+    "default_branch": "main",
+    "homepage": "https://telekom-mms.github.io/terraform-template",
+    "topics": [
+      "terraform",
+      "azure",
+      "azurerm-cdn-profile",
+      "azurerm-cdn-endpoint",
+      "azurerm-cdn-endpoint-custom-domain",
+      "azurerm-cdn-frontdoor-profile",
+      "azurerm-cdn-frontdoor-origin-group",
+      "azurerm-cdn-frontdoor-origin",
+      "azurerm-cdn-frontdoor-endpoint",
+      "azurerm-cdn-frontdoor-custom-domain",
+      "azurerm-cdn-frontdoor-route",
+      "azurerm-cdn-frontdoor-rule-set",
+      "azurerm-cdn-frontdoor-rule",
+      "azurerm-cdn-frontdoor-secret",
+      "azurerm-cdn-frontdoor-firewall-policy",
+      "azurerm-cdn-frontdoor-security-policy"
+    ]
+  }
+}
