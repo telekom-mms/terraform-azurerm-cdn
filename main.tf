@@ -478,7 +478,7 @@ resource "azurerm_cdn_frontdoor_route" "cdn_frontdoor_route" {
   link_to_default_domain          = local.cdn_frontdoor_route[each.key].link_to_default_domain
 
   dynamic "cache" {
-    for_each = length(compact(values(local.cdn_frontdoor_route[each.key].cache))) > 0 ? [0] : []
+    for_each = length(compact(flatten(values(local.cdn_frontdoor_route[each.key].cache)))) > 0 ? [0] : []
 
     content {
       query_string_caching_behavior = local.cdn_frontdoor_route[each.key].cache.query_string_caching_behavior
