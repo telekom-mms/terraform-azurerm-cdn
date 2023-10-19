@@ -1,8 +1,20 @@
 # Changelog
 
+## [2.0.2](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.2) (2023-10-19)
+
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.1...2.0.2)
+
+**Fixed bugs:**
+
+- \[Bug\] Can't create multiple custom rules [\#13](https://github.com/telekom-mms/terraform-azurerm-cdn/issues/13)
+
 ## [2.0.1](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.1) (2023-09-13)
 
 [Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.0...2.0.1)
+
+**Fixed bugs:**
+
+- https://github.com/telekom-mms/terraform-azurerm-cdn/issues/13 [\#15](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/15) ([michaelamattes](https://github.com/michaelamattes))
 
 **Closed issues:**
 
