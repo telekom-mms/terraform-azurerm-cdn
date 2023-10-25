@@ -8,6 +8,10 @@
 
 - \[Bug\] Can't create multiple custom rules [\#13](https://github.com/telekom-mms/terraform-azurerm-cdn/issues/13)
 
+**Merged pull requests:**
+
+- Hotfix for caching in cdn\_froontdoor\_route [\#17](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/17) ([habr-mms](https://github.com/habr-mms))
+
 ## [2.0.1](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.1) (2023-09-13)
 
 [Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.0...2.0.1)
