@@ -7,20 +7,20 @@
     "topics": [
       "terraform",
       "azure",
-      "azurerm-cdn-profile",
-      "azurerm-cdn-endpoint",
-      "azurerm-cdn-endpoint-custom-domain",
-      "azurerm-cdn-frontdoor-profile",
-      "azurerm-cdn-frontdoor-origin-group",
-      "azurerm-cdn-frontdoor-origin",
-      "azurerm-cdn-frontdoor-endpoint",
-      "azurerm-cdn-frontdoor-custom-domain",
-      "azurerm-cdn-frontdoor-route",
-      "azurerm-cdn-frontdoor-rule-set",
-      "azurerm-cdn-frontdoor-rule",
-      "azurerm-cdn-frontdoor-secret",
-      "azurerm-cdn-frontdoor-firewall-policy",
-      "azurerm-cdn-frontdoor-security-policy"
+      "cdn-profile",
+      "cdn-endpoint",
+      "cdn-endpoint-custom-domain",
+      "cdn-frontdoor-profile",
+      "cdn-frontdoor-origin-group",
+      "cdn-frontdoor-origin",
+      "cdn-frontdoor-endpoint",
+      "cdn-frontdoor-custom-domain",
+      "cdn-frontdoor-route",
+      "cdn-frontdoor-rule-set",
+      "cdn-frontdoor-rule",
+      "cdn-frontdoor-secret",
+      "cdn-frontdoor-firewall-policy",
+      "cdn-frontdoor-security-policy"
     ]
   }
 }
