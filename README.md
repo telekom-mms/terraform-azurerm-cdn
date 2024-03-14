@@ -122,7 +122,7 @@ module "cdn" {
   cdn_frontdoor_origin = {
     non-backend = {
       cdn_frontdoor_origin_group_id = module.cdn.cdn_frontdoor_origin_group["non-backend"].id
-      host_name                     = "0.0.0.0"
+      host_name                     = "127.0.0.0"
     }
   }
   cdn_frontdoor_endpoint = {
@@ -154,7 +154,7 @@ module "cdn" {
       cdn_frontdoor_rule_set_id = module.cdn.cdn_frontdoor_rule_set["nonbackend"].id
       order                     = 0
       actions = {
-        url_redirect_action = {
+        leadingDomain = {
           destination_hostname = "www.telekom-mms.com"
         }
       }
@@ -298,14 +298,30 @@ module "cdn" {
       order                     = 0
       actions = {
         url_redirect_action = {
-          destination_hostname = "www.telekom-mms.com"
+          leadingDomain = {
+            destination_hostname = "www.telekom-mms.com"
+          }
+        }
+        response_header_action = {
+          Content-Security-Policy = {
+            header_action = "Append"
+            header_name   = "Content-Security-Policy"
+            value         = "frame-ancestors 'self'"
+          }
+          X-Content-Type-Options = {
+            header_action = "Append"
+            header_name   = "X-Content-Type-Options"
+            value         = "nosniff"
+          }
         }
       }
       conditions = {
         request_header_condition = {
-          header_name  = "Host"
-          match_values = ["telekom-mms.com"]
-          operator     = "Equal"
+          Host = {
+            header_name  = "Host"
+            match_values = ["telekom-mms.com"]
+            operator     = "Equal"
+          }
         }
       }
     }

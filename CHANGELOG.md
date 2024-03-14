@@ -20,10 +20,6 @@
 
 - https://github.com/telekom-mms/terraform-azurerm-cdn/issues/13 [\#15](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/15) ([michaelamattes](https://github.com/michaelamattes))
 
-**Closed issues:**
-
-- Dependency Dashboard [\#5](https://github.com/telekom-mms/terraform-azurerm-cdn/issues/5)
-
 ## [2.0.0](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.0) (2023-09-13)
 
 [Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/1.0.1...2.0.0)
