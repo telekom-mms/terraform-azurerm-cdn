@@ -638,16 +638,24 @@ locals {
       local.cdn_frontdoor_rule_values[cdn_frontdoor_rule],
       {
         for config in ["actions"] :
-        config => {
-          for subconfig in [
-            "url_rewrite_action",
-            "url_redirect_action",
-            "route_configuration_override_action",
-            "request_header_action",
-            "response_header_action"
-          ] :
-          subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}) == {} ? null : merge(local.default.cdn_frontdoor_rule[config][subconfig], local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config][subconfig])
-        }
+        config => merge(
+          {
+            for subconfig in ["route_configuration_override_action"] :
+            subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}) == {} ? null : merge(local.default.cdn_frontdoor_rule[config][subconfig], local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config][subconfig])
+          },
+          {
+            for subconfig in [
+              "url_rewrite_action",
+              "url_redirect_action",
+              "request_header_action",
+              "response_header_action"
+            ] :
+            subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}) == {} ? {} : {
+              for key in keys(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config][subconfig]) :
+              key => merge(local.default.cdn_frontdoor_rule[config][subconfig], local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config][subconfig][key])
+            }
+          }
+        )
       },
       {
         for config in ["conditions"] :
@@ -673,7 +681,10 @@ locals {
             "host_name_condition",
             "ssl_protocol_condition",
           ] :
-          subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, null) == null ? null : merge(local.default.cdn_frontdoor_rule[config][subconfig], lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}))
+          subconfig => lookup(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config], subconfig, {}) == {} ? {} : {
+            for key in keys(local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config][subconfig]) :
+            key => merge(local.default.cdn_frontdoor_rule[config][subconfig], local.cdn_frontdoor_rule_values[cdn_frontdoor_rule][config][subconfig][key])
+          }
         }
       }
     )

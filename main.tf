@@ -506,25 +506,25 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
 
   actions {
     dynamic "url_rewrite_action" {
-      for_each = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action == null ? [] : [0]
+      for_each = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action
 
       content {
-        source_pattern          = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action.source_pattern
-        destination             = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action.destination
-        preserve_unmatched_path = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action.preserve_unmatched_path
+        source_pattern          = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action[url_rewrite_action.key].source_pattern
+        destination             = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action[url_rewrite_action.key].destination
+        preserve_unmatched_path = local.cdn_frontdoor_rule[each.key].actions.url_rewrite_action[url_rewrite_action.key].preserve_unmatched_path
       }
     }
 
     dynamic "url_redirect_action" {
-      for_each = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action == null ? [] : [0]
+      for_each = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action
 
       content {
-        redirect_type        = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.redirect_type
-        destination_hostname = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.destination_hostname
-        redirect_protocol    = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.redirect_protocol
-        destination_path     = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.destination_path
-        query_string         = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.query_string
-        destination_fragment = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action.destination_fragment
+        redirect_type        = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action[url_redirect_action.key].redirect_type
+        destination_hostname = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action[url_redirect_action.key].destination_hostname
+        redirect_protocol    = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action[url_redirect_action.key].redirect_protocol
+        destination_path     = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action[url_redirect_action.key].destination_path
+        query_string         = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action[url_redirect_action.key].query_string
+        destination_fragment = local.cdn_frontdoor_rule[each.key].actions.url_redirect_action[url_redirect_action.key].destination_fragment
       }
     }
 
@@ -543,22 +543,22 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
     }
 
     dynamic "request_header_action" {
-      for_each = local.cdn_frontdoor_rule[each.key].actions.request_header_action == null ? [] : [0]
+      for_each = local.cdn_frontdoor_rule[each.key].actions.request_header_action
 
       content {
-        header_action = local.cdn_frontdoor_rule[each.key].actions.request_header_action.header_action
-        header_name   = local.cdn_frontdoor_rule[each.key].actions.request_header_action.header_name
-        value         = local.cdn_frontdoor_rule[each.key].actions.request_header_action.value
+        header_action = local.cdn_frontdoor_rule[each.key].actions.request_header_action[request_header_action.key].header_action
+        header_name   = local.cdn_frontdoor_rule[each.key].actions.request_header_action[request_header_action.key].header_name
+        value         = local.cdn_frontdoor_rule[each.key].actions.request_header_action[request_header_action.key].value
       }
     }
 
     dynamic "response_header_action" {
-      for_each = local.cdn_frontdoor_rule[each.key].actions.response_header_action == null ? [] : [0]
+      for_each = local.cdn_frontdoor_rule[each.key].actions.response_header_action
 
       content {
-        header_action = local.cdn_frontdoor_rule[each.key].actions.response_header_action.header_action
-        header_name   = local.cdn_frontdoor_rule[each.key].actions.response_header_action.header_name
-        value         = local.cdn_frontdoor_rule[each.key].actions.response_header_action.value
+        header_action = local.cdn_frontdoor_rule[each.key].actions.response_header_action[response_header_action.key].header_action
+        header_name   = local.cdn_frontdoor_rule[each.key].actions.response_header_action[response_header_action.key].header_name
+        value         = local.cdn_frontdoor_rule[each.key].actions.response_header_action[response_header_action.key].value
       }
     }
   }
@@ -568,205 +568,205 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
 
     content {
       dynamic "remote_address_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition[remote_address_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition[remote_address_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.remote_address_condition[remote_address_condition.key].match_values
         }
       }
 
       dynamic "request_method_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition
 
         content {
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition.match_values
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition[request_method_condition.key].match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition[request_method_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_method_condition[request_method_condition.key].negate_condition
         }
       }
 
       dynamic "query_string_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition.transforms
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition[query_string_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition[query_string_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition[query_string_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.query_string_condition[query_string_condition.key].transforms
         }
       }
 
       dynamic "post_args_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition
 
         content {
-          post_args_name   = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.post_args_name
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition.transforms
+          post_args_name   = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition[post_args_condition.key].post_args_name
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition[post_args_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition[post_args_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition[post_args_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.post_args_condition[post_args_condition.key].transforms
         }
       }
 
       dynamic "request_uri_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition.transforms
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition[request_uri_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition[request_uri_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition[request_uri_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_uri_condition[request_uri_condition.key].transforms
         }
       }
 
       dynamic "request_header_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition
 
         content {
-          header_name      = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.header_name
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition.transforms
+          header_name      = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition[request_header_condition.key].header_name
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition[request_header_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition[request_header_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition[request_header_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_header_condition[request_header_condition.key].transforms
         }
       }
 
       dynamic "request_body_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition.transforms
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition[request_body_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition[request_body_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition[request_body_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.request_body_condition[request_body_condition.key].transforms
         }
       }
 
       dynamic "request_scheme_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition[request_scheme_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition[request_scheme_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.request_scheme_condition[request_scheme_condition.key].match_values
         }
       }
 
       dynamic "url_path_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition.transforms
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition[url_path_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition[url_path_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition[url_path_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_path_condition[url_path_condition.key].transforms
         }
       }
 
       dynamic "url_file_extension_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition.transforms
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition[url_file_extension_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition[url_file_extension_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition[url_file_extension_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_file_extension_condition[url_file_extension_condition.key].transforms
         }
       }
 
       dynamic "url_filename_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition.transforms
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition[url_filename_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition[url_filename_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition[url_filename_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.url_filename_condition[url_filename_condition.key].transforms
         }
       }
 
       dynamic "http_version_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition
 
         content {
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition.match_values
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition.negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition[http_version_condition.key].match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition[http_version_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.http_version_condition[http_version_condition.key].negate_condition
         }
       }
 
       dynamic "cookies_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition
 
         content {
-          cookie_name      = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.cookie_name
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition.transforms
+          cookie_name      = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition[cookies_condition.key].cookie_name
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition[cookies_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition[cookies_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition[cookies_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.cookies_condition[cookies_condition.key].transforms
         }
       }
 
       dynamic "is_device_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition[is_device_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition[is_device_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.is_device_condition[is_device_condition.key].match_values
         }
       }
 
       dynamic "socket_address_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition[socket_address_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition[socket_address_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.socket_address_condition[socket_address_condition.key].match_values
         }
       }
 
       dynamic "client_port_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition[client_port_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition[client_port_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition[client_port_condition.key].match_values
         }
       }
 
       dynamic "server_port_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.server_port_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.server_port_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition[server_port_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition[server_port_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.client_port_condition[server_port_condition.key].match_values
         }
       }
 
       dynamic "host_name_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.match_values
-          transforms       = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition.transforms
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition[host_name_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition[host_name_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition[host_name_condition.key].match_values
+          transforms       = local.cdn_frontdoor_rule[each.key].conditions.host_name_condition[host_name_condition.key].transforms
         }
       }
 
       dynamic "ssl_protocol_condition" {
-        for_each = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition == null ? [] : [0]
+        for_each = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition
 
         content {
-          operator         = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition.operator
-          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition.negate_condition
-          match_values     = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition.match_values
+          operator         = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition[ssl_protocol_condition.key].operator
+          negate_condition = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition[ssl_protocol_condition.key].negate_condition
+          match_values     = local.cdn_frontdoor_rule[each.key].conditions.ssl_protocol_condition[ssl_protocol_condition.key].match_values
         }
       }
     }
