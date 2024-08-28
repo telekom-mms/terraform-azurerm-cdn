@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.0.4](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.4) (2024-08-28)
+
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.3...2.0.4)
+
+**Implemented enhancements:**
+
+- pin max version [\#23](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/23) ([michaelamattes](https://github.com/michaelamattes))
+
+**Fixed bugs:**
+
+- \[Bug\] Can't create multiple actions of same type in one azurerm\_cdn\_frontdoor\_rule [\#19](https://github.com/telekom-mms/terraform-azurerm-cdn/issues/19)
+
+## [2.0.3](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.3) (2024-03-14)
+
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.2...2.0.3)
+
+**Fixed bugs:**
+
+- https://github.com/telekom-mms/terraform-azurerm-cdn/issues/19 [\#20](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/20) ([michaelamattes](https://github.com/michaelamattes))
+
+**Merged pull requests:**
+
+- run terrascan in test setting directory [\#18](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/18) ([michaelamattes](https://github.com/michaelamattes))
+
 ## [2.0.2](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.2) (2023-10-19)
 
 [Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.1...2.0.2)
