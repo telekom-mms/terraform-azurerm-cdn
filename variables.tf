@@ -216,8 +216,8 @@ locals {
         tls_version = null
       }
       user_managed_https = {
-        key_vault_secret_id      = null //required
-        tls_version              = null
+        key_vault_secret_id = null //required
+        tls_version         = null
       }
     }
     cdn_frontdoor_profile = {
@@ -433,7 +433,7 @@ locals {
           match_values       = [] // define default
           selector           = null
           negation_condition = null
-          transforms         = null
+          transforms         = []
         }
       }
       managed_rule = {
