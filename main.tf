@@ -26,9 +26,12 @@ resource "azurerm_cdn_endpoint" "cdn_endpoint" {
   is_http_allowed               = local.cdn_endpoint[each.key].is_http_allowed
   is_https_allowed              = local.cdn_endpoint[each.key].is_https_allowed
   is_compression_enabled        = local.cdn_endpoint[each.key].is_compression_enabled
+  content_types_to_compress     = local.cdn_endpoint[each.key].content_types_to_compress
   querystring_caching_behaviour = local.cdn_endpoint[each.key].querystring_caching_behaviour
   optimization_type             = local.cdn_endpoint[each.key].optimization_type
   origin_host_header            = local.cdn_endpoint[each.key].origin_host_header
+  origin_path                   = local.cdn_endpoint[each.key].origin_path
+  probe_path                    = local.cdn_endpoint[each.key].probe_path
 
   dynamic "origin" {
     for_each = local.cdn_endpoint[each.key].origin
