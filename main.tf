@@ -25,8 +25,8 @@ resource "azurerm_cdn_endpoint" "cdn_endpoint" {
   profile_name                  = local.cdn_endpoint[each.key].profile_name
   is_http_allowed               = local.cdn_endpoint[each.key].is_http_allowed
   is_https_allowed              = local.cdn_endpoint[each.key].is_https_allowed
-  content_types_to_compress     = local.cdn_endpoint[each.key].content_types_to_compress
   is_compression_enabled        = local.cdn_endpoint[each.key].is_compression_enabled
+  content_types_to_compress     = local.cdn_endpoint[each.key].content_types_to_compress
   querystring_caching_behaviour = local.cdn_endpoint[each.key].querystring_caching_behaviour
   optimization_type             = local.cdn_endpoint[each.key].optimization_type
   origin_host_header            = local.cdn_endpoint[each.key].origin_host_header
@@ -368,9 +368,8 @@ resource "azurerm_cdn_endpoint_custom_domain" "cdn_endpoint_custom_domain" {
     for_each = local.cdn_endpoint_custom_domain[each.key].user_managed_https == null ? [] : [0]
 
     content {
-      key_vault_certificate_id = local.cdn_endpoint_custom_domain[each.key].user_managed_https.key_vault_certificate_id
-      key_vault_secret_id      = local.cdn_endpoint_custom_domain[each.key].user_managed_https.key_vault_secret_id
-      tls_version              = local.cdn_endpoint_custom_domain[each.key].user_managed_https.tls_version
+      key_vault_secret_id = local.cdn_endpoint_custom_domain[each.key].user_managed_https.key_vault_secret_id
+      tls_version         = local.cdn_endpoint_custom_domain[each.key].user_managed_https.tls_version
     }
   }
 }

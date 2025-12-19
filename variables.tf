@@ -80,8 +80,8 @@ locals {
       name                          = ""
       is_http_allowed               = null
       is_https_allowed              = null
-      content_types_to_compress     = null
       is_compression_enabled        = null
+      content_types_to_compress     = null
       querystring_caching_behaviour = null
       optimization_type             = null
       origin_host_header            = null
@@ -219,9 +219,7 @@ locals {
         tls_version = null
       }
       user_managed_https = {
-        key_vault_certificate_id = null
-        key_vault_secret_id      = null
-        tls_version              = null
+        tls_version = null
       }
     }
     cdn_frontdoor_profile = {
@@ -437,7 +435,7 @@ locals {
           match_values       = [] // define default
           selector           = null
           negation_condition = null
-          transforms         = null
+          transforms         = []
         }
       }
       managed_rule = {
