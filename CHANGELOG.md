@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.1](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/3.0.1) (2026-03-30)
+
+[Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/3.0.0...3.0.1)
+
+**Merged pull requests:**
+
+- chore\(config\): standardize renovate.json and update repository topics [\#28](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/28) ([mikaEz](https://github.com/mikaEz))
+
 ## [3.0.0](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/3.0.0) (2025-12-19)
 
 [Full Changelog](https://github.com/telekom-mms/terraform-azurerm-cdn/compare/2.0.4...3.0.0)
@@ -10,7 +18,7 @@
 
 **Fixed bugs:**
 
-- fix terrascan workflow run [\#24](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/24) ([michaelamattes](https://github.com/michaelamattes))
+- fix terrascan workflow run [\#24](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/24) ([mikaEz](https://github.com/mikaEz))
 
 **Merged pull requests:**
 
@@ -22,7 +30,7 @@
 
 **Implemented enhancements:**
 
-- pin max version [\#23](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/23) ([michaelamattes](https://github.com/michaelamattes))
+- pin max version [\#23](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/23) ([mikaEz](https://github.com/mikaEz))
 
 **Fixed bugs:**
 
@@ -34,11 +42,11 @@
 
 **Fixed bugs:**
 
-- https://github.com/telekom-mms/terraform-azurerm-cdn/issues/19 [\#20](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/20) ([michaelamattes](https://github.com/michaelamattes))
+- https://github.com/telekom-mms/terraform-azurerm-cdn/issues/19 [\#20](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/20) ([mikaEz](https://github.com/mikaEz))
 
 **Merged pull requests:**
 
-- run terrascan in test setting directory [\#18](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/18) ([michaelamattes](https://github.com/michaelamattes))
+- run terrascan in test setting directory [\#18](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/18) ([mikaEz](https://github.com/mikaEz))
 
 ## [2.0.2](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.2) (2023-10-19)
 
@@ -58,7 +66,7 @@
 
 **Fixed bugs:**
 
-- https://github.com/telekom-mms/terraform-azurerm-cdn/issues/13 [\#15](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/15) ([michaelamattes](https://github.com/michaelamattes))
+- https://github.com/telekom-mms/terraform-azurerm-cdn/issues/13 [\#15](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/15) ([mikaEz](https://github.com/mikaEz))
 
 ## [2.0.0](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/2.0.0) (2023-09-13)
 
@@ -66,11 +74,11 @@
 
 **Implemented enhancements:**
 
-- Refactoring [\#14](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/14) ([michaelamattes](https://github.com/michaelamattes))
+- Refactoring [\#14](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/14) ([mikaEz](https://github.com/mikaEz))
 
 **Merged pull requests:**
 
-- add Renovate Dependency Dashboard and automatic merge on patch updates [\#12](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/12) ([michaelamattes](https://github.com/michaelamattes))
+- add Renovate Dependency Dashboard and automatic merge on patch updates [\#12](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/12) ([mikaEz](https://github.com/mikaEz))
 - Update actions/checkout action to v3.2.0 [\#11](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/11) ([renovate[bot]](https://github.com/apps/renovate))
 - Update actions/checkout action to v3.1.0 [\#10](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/10) ([renovate[bot]](https://github.com/apps/renovate))
 - Update hashicorp/setup-terraform action to v2 [\#9](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/9) ([renovate[bot]](https://github.com/apps/renovate))
@@ -86,7 +94,7 @@
 
 - Update creyD/prettier\_action action to v3.3 [\#4](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/4) ([renovate[bot]](https://github.com/apps/renovate))
 - Update actions/checkout action to v2.4.2 [\#3](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/3) ([renovate[bot]](https://github.com/apps/renovate))
-- add renovate config [\#2](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/2) ([michaelamattes](https://github.com/michaelamattes))
+- add renovate config [\#2](https://github.com/telekom-mms/terraform-azurerm-cdn/pull/2) ([mikaEz](https://github.com/mikaEz))
 
 ## [1.0.0](https://github.com/telekom-mms/terraform-azurerm-cdn/tree/1.0.0) (2022-05-09)
 
