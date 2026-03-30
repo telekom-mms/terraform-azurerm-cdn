@@ -5,22 +5,22 @@
     "default_branch": "main",
     "homepage": "https://telekom-mms.github.io/terraform-template",
     "topics": [
-      "terraform",
       "azure",
-      "cdn-profile",
       "cdn-endpoint",
       "cdn-endpoint-custom-domain",
-      "cdn-frontdoor-profile",
-      "cdn-frontdoor-origin-group",
-      "cdn-frontdoor-origin",
-      "cdn-frontdoor-endpoint",
       "cdn-frontdoor-custom-domain",
-      "cdn-frontdoor-route",
-      "cdn-frontdoor-rule-set",
-      "cdn-frontdoor-rule",
-      "cdn-frontdoor-secret",
+      "cdn-frontdoor-endpoint",
       "cdn-frontdoor-firewall-policy",
-      "cdn-frontdoor-security-policy"
+      "cdn-frontdoor-origin",
+      "cdn-frontdoor-origin-group",
+      "cdn-frontdoor-profile",
+      "cdn-frontdoor-route",
+      "cdn-frontdoor-rule",
+      "cdn-frontdoor-rule-set",
+      "cdn-frontdoor-secret",
+      "cdn-frontdoor-security-policy",
+      "cdn-profile",
+      "terraform"
     ]
   }
 }
